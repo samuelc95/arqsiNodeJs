@@ -6,5 +6,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false}));
 
-require('./controllers/encomendaController')(app);
-app.listen(5500);
+var encomendaRouter = require('./routes/encomendaRoutes');
+app.use('/', encomendaRouter);
+
+app.listen(3000);
