@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/9ef36bf3-a3c5-47e3-a4e4-87b52927cb9c/resourceGroups/appsvc_rg_linux_centralus/providers/Microsoft.Web/sites/ArqsiNodeJs",
+    "appService.deploySubpath": ""
+}
