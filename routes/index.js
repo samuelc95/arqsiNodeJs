@@ -16,5 +16,8 @@ router.route('/encomenda')
 router.route('/encomenda/:idEnc')
   .get(encomendaController.getEncomendaById);
 
+router.route('/encomenda/produtos/')
+  .get(encomendaController.getProduto);
+
 
 module.exports = router;
