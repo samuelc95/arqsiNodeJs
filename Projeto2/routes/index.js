@@ -13,7 +13,8 @@ router.route('/encomenda')
 
 
 // on routes that end in /encomenda/:encomenda_id
-// router.route('/encomenda/:encId')
+router.route('/encomenda/:idEnc')
+  .get(encomendaController.getEncomendaById);
 
-router.use('/api', router);
+
 module.exports = router;
