@@ -27,8 +27,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 var encomendaRoutes = require('./routes');
-
-var port = process.env.PORT || 3000;        // set our port
+var port = process.env.PORT || 1337;
+/* var port = process.env.PORT || 3000;  */       // set our port
 console.log('PAsso porta');
 // ROUTES FOR OUR API
 // =============================================================================
