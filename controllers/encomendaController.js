@@ -1,4 +1,5 @@
 const Encomenda = require('../models/encomenda');
+const request = require('request');
 
 
 // router.post('/register', async(req, res) => {
@@ -38,46 +39,46 @@ const Encomenda = require('../models/encomenda');
 //     });
 // })
 
-exports.post_encomendas = function (req, res) {
+    exports.post_encomendas = function (req, res) {
 
-    try {
-        var encomenda = new Encomenda({
-            idEnc: req.body.idEnc,
+        try {
+            var encomenda = new Encomenda({
+                idEnc: req.body.idEnc,
 
-        });
-        encomenda.save(function (err, data) {
-            if (err) {
-                return res.status(412).send({
-                    success: false
-                });
-            }
-            return res.send({
-                success: true,
-                message: 'Encomenda registada com sucesso!'
             });
-        })
-    } catch (err) {
+            encomenda.save(function (err, data) {
+                if (err) {
+                    return res.status(412).send({
+                        success: false
+                    });
+                }
+                return res.send({
+                    success: true,
+                    message: 'Encomenda registada com sucesso!'
+                });
+            })
+        } catch (err) {
 
-        return res.status(400).send({
-            error: 'Erro criar encomenda'
+            return res.status(400).send({
+                error: 'Erro criar encomenda'
+            });
+
+        }
+    };
+
+    exports.get_encomendas = function (req, res) {
+        console.log("entrou get");
+        Encomenda.find(function (err, encomenda) {
+            if (err)
+                res.send(err);
+
+            res.json(encomenda);
         });
 
-    }
-};
+    };
+    // get the encomenda with that id (accessed at GET http://localhost:3000/api/encomenda/:encomenda_id)
 
-exports.get_encomendas = function (req, res) {
-    console.log("entrou get");
-    Encomenda.find(function (err, encomenda) {
-        if (err)
-            res.send(err);
-
-        res.json(encomenda);
-    });
-
-
-    // get the bear with that id (accessed at GET http://localhost:3000/api/encomenda/:encomenda_id)
-
-    /* exports.get_encomendaId = function (req, res) {
+    exports.getEncomendaById = function (req, res) {
             console.log("entrou get id");
             Encomenda.findById(req.params.idEnc, function(err, encomenda) {
                 if (err)
@@ -85,32 +86,29 @@ exports.get_encomendas = function (req, res) {
         
                 res.json(encomenda);
             });
-        }; */
+        }; 
+//http://localhost:5000/api/produtos
+    exports.getProdutos = function (req, res) {
+        
+        var request = require('request');
+        request.get({
+        "encoding":"utf-8",
+        "method":"GET",
+        "uri":"http://localhost:5000/api/produtos/",
+        "followRedirect":false
+        }, function(err, res, body) {//options not actually hard-coded, but for example sake
+            if (err){
+                res.send(err); 
+            }
+            /* var jsonObject = JSON.parse(body); */
+            console.log(body);
+        });
+        
+    };  
 
-};
 
-// get the bear with that id (accessed at GET http://localhost:8080/api/bears/:bear_id)
-exports.getEncomendaById = function (req, res) {
-    Encomenda.findById(req.params.idEnc, function (err, encomenda) {
-        if (err)
-            res.send(err);
-        res.json(encomenda);
-    });
-};
 
-exports.getProduto = function (req, res) {
-    var request = require("request")
-    var url = "http://localhost:5000/api/produtos"
-    request({
-        url: url,
-        json: true
-    }, function (error, response, body) {
 
-        if (!error && response.statusCode === 200) {
-            console.log(body) // Print the json response
-        }
-    })
-};
 
 
 

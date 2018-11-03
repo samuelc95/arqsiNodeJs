@@ -15,9 +15,10 @@ router.route('/encomenda')
 // on routes that end in /encomenda/:encomenda_id
 router.route('/encomenda/:idEnc')
   .get(encomendaController.getEncomendaById);
+  
+ router.route('/produtos')
+  .get(encomendaController.getProdutos); 
 
-router.route('/encomenda/produtos/')
-  .get(encomendaController.getProduto);
 
 
 module.exports = router;

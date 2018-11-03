@@ -26,9 +26,8 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-var port = process.env.PORT || 1337;
-/* var port = process.env.PORT || 3000;  */       // set our port
-console.log('PAsso porta');
+/* var port = process.env.PORT || 1337; */
+var port = process.env.PORT || 3000;      // set our port
 // ROUTES FOR OUR API
 // =============================================================================
 var router = express.Router();              // get an instance of the express Router
