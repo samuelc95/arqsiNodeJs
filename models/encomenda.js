@@ -1,14 +1,15 @@
 const mongoose = require('../database');
 
 const EncomendaSchema = new mongoose.Schema({
-    idEnc: {
+    idProdPrincipal: {
         type: Number,
         require: true,
     },
-    data: {
-        type: String,
-        require: false,
-    },
+    medidas:  
+        [{height:Number, width:Number, depth:Number}],
+   
+    produtos:
+        [{idProduto:Number,height:Number, width:Number, depth:Number}]  
 });
 
 const Encomenda = mongoose.model('Encomenda', EncomendaSchema);

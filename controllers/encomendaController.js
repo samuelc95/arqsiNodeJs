@@ -43,7 +43,9 @@ const request = require('request');
 
         try {
             var encomenda = new Encomenda({
-                idEnc: req.body.idEnc,
+                idProdPrincipal: req.body.idProdPrincipal,
+                medidas: req.body.medidas,
+                produtos: req.body.produtos,
 
             });
             encomenda.save(function (err, data) {
@@ -90,18 +92,29 @@ const request = require('request');
 //http://localhost:5000/api/produtos
     exports.getProdutos = function (req, res) {
         
-        var request = require('request');
-        request.get({
+        var request1 = require('request');
+        request1.get({
         "encoding":"utf-8",
         "method":"GET",
-        "uri":"http://localhost:5000/api/produtos/",
+        "uri":"http://arqsi-1151111-1151112.azurewebsites.net/api/produtos",
         "followRedirect":false
         }, function(err, res, body) {//options not actually hard-coded, but for example sake
             if (err){
                 res.send(err); 
             }
             /* var jsonObject = JSON.parse(body); */
-            console.log(body);
+           // var t = JSON.parse(res.body); 
+           
+
+            
+            var newStr = body.substring(1, body.length-1);
+            var splitValues = newStr.split(",");
+            //var splitValues1 = splitValues[1].split(",");
+           // var t = JSON.parse(newStr); 
+
+           //var product = JSON.parse(newStr);
+
+            console.log(splitValues);
         });
         
     };  
