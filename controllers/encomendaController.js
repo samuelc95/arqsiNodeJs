@@ -90,34 +90,20 @@ const request = require('request');
             });
         }; 
 //http://localhost:5000/api/produtos
-    exports.getProdutos = function (req, res) {
-        
-        var request1 = require('request');
-        request1.get({
-        "encoding":"utf-8",
-        "method":"GET",
-        "uri":"http://arqsi-1151111-1151112.azurewebsites.net/api/produtos",
-        "followRedirect":false
-        }, function(err, res, body) {//options not actually hard-coded, but for example sake
-            if (err){
-                res.send(err); 
-            }
-            /* var jsonObject = JSON.parse(body); */
-           // var t = JSON.parse(res.body); 
-           
-
-            
-            var newStr = body.substring(1, body.length-1);
-            var splitValues = newStr.split(",");
-            //var splitValues1 = splitValues[1].split(",");
-           // var t = JSON.parse(newStr); 
-
-           //var product = JSON.parse(newStr);
-
-            console.log(splitValues);
-        });
-        
-    };  
+exports.getProdutos = function (req, res) {
+    const axios = require('axios');
+    axios
+  .get('http://arqsi-1151111-1151112.azurewebsites.net/api/produtos')
+  .then(response => {
+    var s = JSON.stringify(response.data)
+    var jsonData = JSON.parse(s);
+        for (var i = 0; i < jsonData.length; i++) { 
+            console.log(jsonData[i].productId);
+        }
+  }).catch(error => {
+    console.log(error);
+  }); 
+};   
 
 
 
