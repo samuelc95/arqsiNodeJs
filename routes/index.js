@@ -2,6 +2,7 @@ const express = require('express');
 const encomendaController =require('../controllers/encomendaController');
 const itemController =require('../controllers/itemProdutoController');
 const router = express.Router();
+var cors= require('cors');
 
 var whitelist = ['http://localhost:4200']
 var corsOptionsDelegate = function (req, callback) {
@@ -13,13 +14,13 @@ var corsOptionsDelegate = function (req, callback) {
   }
   callback(null, corsOptions) // callback expects two parameters: error and options
 }
-router.route('/encomenda')
+router.route('/encomenda',cors(corsOptionsDelegate))
 
   // create a encomenda (accessed at POST http://localhost:3000/api/encomenda)
-  .post(encomendaController.post_encomenda,cors(corsOptionsDelegate))
+  .post(encomendaController.post_encomenda)
 
   // get all the encomenda (accessed at GET http://localhost:3000/api/encomenda)
-  .get(encomendaController.get_encomendas,cors(corsOptionsDelegate));
+  .get(encomendaController.get_encomendas);
 
 
 // on routes that end in /encomenda/:encomenda_id
@@ -27,15 +28,15 @@ router.route('/encomenda/:idEnc', cors(corsOptionsDelegate))
   .get(encomendaController.get_encomendaById)
 
   // edit a encomenda (accessed at PUT http://localhost:3000/api/encomenda)
-  .put(encomendaController.put_encomenda,cors(corsOptionsDelegate))
+  .put(encomendaController.put_encomenda)
 
-  .delete(encomendaController.delete_encomenda,cors(corsOpcorsOptionsDelegatetions));
+  .delete(encomendaController.delete_encomenda);
   
- router.route('/produtos')
-  .get(encomendaController.getProdutos,cors(corsOptionsDelegate)); 
+ router.route('/produtos',cors(corsOptionsDelegate))
+  .get(encomendaController.getProdutos); 
 
-  router.route('/encomenda/:idEnc/Itens')
-  .get(encomendaController.getItensEncomenda,cors(corsOptionsDelegate));
+  router.route('/encomenda/:idEnc/Itens',cors(corsOptionsDelegate))
+  .get(encomendaController.getItensEncomenda);
 
   router.route('/encomenda/:idEnc/Itens/:idItem',cors(corsOptionsDelegate))
   .get(itemController.getItemId)
@@ -46,9 +47,9 @@ router.route('/encomenda/:idEnc', cors(corsOptionsDelegate))
   .get(itemController.get_itens)
   ;
   router.route('/ItemDeProduto/:idItem',cors(corsOptionsDelegate))
-  .get(itemController.getItemId,cors(corsOptionsDelegate))
-  .put(itemController.putItem,cors(corsOptionsDelegate))
-  .delete(itemController.delete_item,cors(corsOptionsDelegate))
+  .get(itemController.getItemId)
+  .put(itemController.putItem)
+  .delete(itemController.delete_item)
   ;
 
 module.exports = router;
