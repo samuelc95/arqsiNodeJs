@@ -27,7 +27,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 /* var port = process.env.PORT || 1337; */
-var port = process.env.PORT || 3000;      // set our port
+var port = process.env.PORT || 3000;       // set our port
+console.log('PAsso porta');
 // ROUTES FOR OUR API
 // =============================================================================
 var router = express.Router();              // get an instance of the express Router
@@ -50,6 +51,9 @@ router.get('/', function(req, res) {
 // all of our routes will be prefixed wtih /api
 var routes = require('./routes');
 app.use('/api', routes);
+
+var cors= require('cors');
+app.use(cors());
 
 // Import my test routes into the path '/test'
 app.listen(port);
