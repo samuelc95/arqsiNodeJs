@@ -2,19 +2,8 @@ const express = require('express');
 const encomendaController =require('../controllers/encomendaController');
 const itemController =require('../controllers/itemProdutoController');
 const router = express.Router();
-var cors= require('cors');
 
-var whitelist = ['http://localhost:4200']
-var corsOptionsDelegate = function (req, callback) {
-  var corsOptions;
-  if (whitelist.indexOf(req.header('Origin')) !== -1) {
-    corsOptions = { origin: true } // reflect (enable) the requested origin in the CORS response
-  } else {
-    corsOptions = { origin: false } // disable CORS for this request
-  }
-  callback(null, corsOptions) // callback expects two parameters: error and options
-}
-router.route('/encomenda',cors(corsOptionsDelegate))
+router.route('/encomenda')
 
   // create a encomenda (accessed at POST http://localhost:3000/api/encomenda)
   .post(encomendaController.post_encomenda)
@@ -24,7 +13,7 @@ router.route('/encomenda',cors(corsOptionsDelegate))
 
 
 // on routes that end in /encomenda/:encomenda_id
-router.route('/encomenda/:idEnc', cors(corsOptionsDelegate))
+router.route('/encomenda/:idEnc')
   .get(encomendaController.get_encomendaById)
 
   // edit a encomenda (accessed at PUT http://localhost:3000/api/encomenda)
@@ -32,21 +21,21 @@ router.route('/encomenda/:idEnc', cors(corsOptionsDelegate))
 
   .delete(encomendaController.delete_encomenda);
   
- router.route('/produtos',cors(corsOptionsDelegate))
+ router.route('/produtos')
   .get(encomendaController.getProdutos); 
 
-  router.route('/encomenda/:idEnc/Itens',cors(corsOptionsDelegate))
+  router.route('/encomenda/:idEnc/Itens')
   .get(encomendaController.getItensEncomenda);
 
-  router.route('/encomenda/:idEnc/Itens/:idItem',cors(corsOptionsDelegate))
+  router.route('/encomenda/:idEnc/Itens/:idItem')
   .get(itemController.getItemId)
   ;
-  router.route('/ItemDeProduto/',cors(corsOptionsDelegate))
+  router.route('/ItemDeProduto/')
   .post(itemController.postItemProduto)
 
   .get(itemController.get_itens)
   ;
-  router.route('/ItemDeProduto/:idItem',cors(corsOptionsDelegate))
+  router.route('/ItemDeProduto/:idItem')
   .get(itemController.getItemId)
   .put(itemController.putItem)
   .delete(itemController.delete_item)
