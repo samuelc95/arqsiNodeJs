@@ -1,0 +1,4 @@
+.btn-xs {
+    
+    @include button-size($padding-y, $padding-x, $font-size, $line-height, $border-radius);
+  }

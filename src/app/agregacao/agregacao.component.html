@@ -1,0 +1,124 @@
+<h2>Listagem Agregações</h2>
+<hr>
+<table class="table table-bordered table-definition mb-5">
+  <thead class="table-primary ">
+    <tr>
+      <th>Product 1</th>
+      <th>Product 2</th>
+      <th>Optional</th>
+      <th>Edit</th>
+      <th>Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let ag of agregacoes ">
+      <td>{{ getNome(ag.productId1) }}</td>
+      <td>{{ getNome(ag.productId2) }}</td>
+      <td>{{ ag.optional }}</td>
+      <td><button onclick="editDisplay(1)" (click)="getAgregacaoId(ag.itemId)" class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal"
+          data-target="#edit"><span class="fa fa-pencil"></span></button></td>
+      <td><button onClick="setTimeout(function(){location.reload();}, 500);" (click)="deleteAgregacao(ag.itemId)" onclick="location.reload()" class="btn btn-danger btn-xs"
+          data-title="Delete" data-toggle="modal" data-target="#delete"><span class="fa fa-trash-o"></span></button></td>
+
+    </tr>
+
+  </tbody>
+  <tfoot>
+    <tr>
+      <th></th>
+      <th colspan="4">
+        <button onclick="formDisplay(1)" class="btn btn-primary float-right">Inserir Agregacao</button>
+        <!-- <button class="btn btn-default">Approve</button>
+                <button class="btn btn-default">Approve All</button>-->
+      </th>
+    </tr>
+  </tfoot>
+</table>
+
+<div id="divForm" action="">
+  <div class="col-md-8 order-md-1">
+    <h3 class="mb-3">Inserir Agregação</h3>
+
+    <form [formGroup]="regForm">
+      <div class="row">
+        <div class="col-md-5 mb-3">
+          <div class="form-group">
+            <label>Produto 1</label>
+            <select class="form-control" formControlName="productId1" id="productId1" required>
+              <option *ngFor="let prod of produtos" value="{{prod.productId}}">{{prod.nome}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-4 mb-3">
+          <div class="form-group">
+            <label>Produto 2</label>
+            <select class="form-control" formControlName="productId2" id="productId2" required>
+              <option *ngFor="let prod of produtos" value="{{prod.productId}}">{{prod.nome}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-3 mb-3">
+          <div class="form-group">
+            <label>Opcional</label>
+            <select class="form-control" formControlName="optional" id="optional" required>
+              <option value="false">false</option>
+              <option value="true">true</option>
+            </select>
+            <div class="invalid-feedback">
+              Inserir opção válida.
+            </div>
+          </div>
+        </div>
+      </div>
+      <button onClick="setTimeout(function(){location.reload();}, 500);" (click)="addAgregacao()" onclick="formDisplay(3)" type="submit" class="btn btn-primary">Submit</button>
+
+    </form>
+    {{regForm.value | json}}
+  </div>
+</div>
+
+
+<div id="editForm" action="">
+    <div class="col-md-8 order-md-1">
+      <h3 class="mb-3">Editar Agregação</h3>
+  
+      <form [formGroup]="editForm">
+        <div class="row">
+          <div class="col-md-5 mb-3">
+            <div class="form-group">
+              <label>Produto 1</label>
+              <select class="form-control" formControlName="productId1" id="productId1" required>
+                  
+                  <option *ngFor="let prod of produtos" [attr.selected]="prod.nome == getNome(agregacao.productId1) ? true : null" [value]="prod.productId" >{{prod.nome}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-4 mb-3">
+            <div class="form-group">
+              <label>Produto 2</label>
+              <select class="form-control" formControlName="productId2" id="productId2" required>
+                  <option >{{getNome(agregacao.productId1)}}</option>
+                  <option *ngFor="let prod of produtos" [value]="prod.productId" >{{prod.nome}}</option>
+                  
+              </select>
+            </div>
+          </div>
+          <div class="col-md-3 mb-3">
+            <div class="form-group">
+              <label>Opcional</label>
+              <select class="form-control" formControlName="optional" id="optional" required>
+                <option value="false">false</option>
+                <option value="true">true</option>
+              </select>
+              <div class="invalid-feedback">
+                Inserir opção válida.
+              </div>
+            </div>
+          </div>
+        </div>
+        <button onClick="setTimeout(function(){location.reload();}, 500);" (click)="addAgregacao()" onclick="formDisplay(3)" type="submit" class="btn btn-primary">Submit</button>
+  
+      </form>
+      {{editForm.value | json}}
+    </div>
+  </div>

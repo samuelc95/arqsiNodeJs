@@ -1,0 +1,73 @@
+
+<h2>Listagem Materiais/Acabamentos</h2>
+<hr>
+  <table class="table table-bordered table-definition mb-5">
+    <thead class="table-primary ">
+        <tr>
+            <th>Material</th>
+            <th>Acabamento</th>
+            <th>Edit</th>        
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr  *ngFor="let matacab of matsacabs">            
+            <td >{{ getNomeMaterial(matacab.materialId) }}</td>
+            <td >{{ getNomeAcabamento(matacab.acabamentoId) }}</td>
+            <td><button onClick="setTimeout(function(){location.reload();}, 500);" class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" ><span class="fa fa-pencil" ></span></button></td>
+            <td><button onClick="setTimeout(function(){location.reload();}, 500);" (click)="deleteMatAcab(matacab.material_AcabamentoID)" class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="fa fa-trash-o" ></span></button></td>
+            
+        </tr>
+        
+    </tbody>
+    <tfoot>
+        <tr>
+            <th></th>
+            <th colspan="4">
+                <button onclick="formDisplay(1)" class="btn btn-primary float-right">Inserir Acabamento</button>
+                <!-- <button class="btn btn-default">Approve</button>
+                <button class="btn btn-default">Approve All</button>-->
+            </th>
+        </tr>
+    </tfoot>
+  </table>
+
+
+  <div id="divForm" action="">
+        <div class="col-md-8 order-md-1">
+        <h3 class="mb-3">Inserir Material Acabamento</h3>
+
+    <form [formGroup]="regForm">
+      <div class="row">
+              <div class="col-md-5 mb-3">
+                <div class="form-group">
+                  <label>Material</label>
+                  <select class="form-control" formControlName="materialId" id="materialId" required>
+                    <option *ngFor="let mat of materiais" value="{{mat.materialId}}">{{mat.nome}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-4 mb-3">
+                <div class="form-group">
+                  <label>Acabamentos</label>
+                  <select class="form-control" formControlName="acabamentoId" id="acabamentoId" required>
+                    <option *ngFor="let acab of acabamentos" value="{{acab.acabamentoId}}">{{acab.nome}}</option>
+                  </select>
+                </div>
+              </div>
+              <!--<div class="col-md-3 mb-3">
+                <div class="form-group">
+                  <label>Profundidade</label>
+                  <input type="text" formControlName="profundidade" class="form-control" id="profundidade" placeholder="" required>
+                  <div class="invalid-feedback">
+                    Inserir profundidade válida.
+                  </div>
+                </div>
+              </div>-->
+      </div> 
+        <button onClick="setTimeout(function(){location.reload();}, 500);" (click)="addMatAcab()" type="submit" class="btn btn-primary">Submit</button>
+                
+    </form>
+      {{regForm.value | json}}
+    </div>
+  </div>

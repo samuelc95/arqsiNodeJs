@@ -1,0 +1,182 @@
+
+<h2>Listagem Restricoes</h2>
+<hr>
+  <table class="table table-bordered table-definition mb-5">
+    <thead class="table-primary ">
+        <tr>
+            <th>Altura Min</th>
+            <th>Altura Max</th>
+            <th>Comprimento Min</th>
+            <th>Comprimento Max</th>
+            <th>Prof. Min</th>
+            <th>Prof. Max</th>
+            <th>Edit</th>        
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr  *ngFor="let res of restricoes">
+            <td>{{ res.heightMin }}</td>
+            <td>{{ res.heightMax }}</td>
+            <td>{{ res.lenghtMin }}</td>
+            <td>{{ res.lenghtMax }}</td>
+            <td>{{ res.depthMin }}</td>
+            <td>{{ res.depthMax }}</td>
+            <td><button onclick="editDisplay(1)" (click)="getRestricaoId(res.restrictionId)" class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" ><span class="fa fa-pencil" ></span></button></td>
+            <td><button onClick="setTimeout(function(){location.reload();}, 500);" (click)="deleteRestricao(res.restrictionId)" class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="fa fa-trash-o" ></span></button></td>
+            
+        </tr>
+        
+    </tbody>
+    <tfoot>
+        <tr>
+            <th></th>
+            <th colspan="4">
+                <button onclick="formDisplay(1)" class="btn btn-primary float-right">Inserir Produto</button>
+                <!-- <button class="btn btn-default">Approve</button>
+                <button class="btn btn-default">Approve All</button>-->
+            </th>
+        </tr>
+    </tfoot>
+  </table>
+
+
+  <div id="divForm" action="">
+        <div class="col-md-8 order-md-1">
+        <h3 class="mb-3">Inserir Restricao</h3>
+
+    <form [formGroup]="regForm">
+      <div class="row">
+              <div class="col-md-5 mb-3">
+                <div class="form-group">
+                  <label>Altura Minima</label>
+                  <input type="text" formControlName="alturaMin" class="form-control" id="alturaMin" placeholder="" required>
+                  <div class="invalid-feedback">
+                    Inserir altura válida.
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4 mb-3">
+                <div class="form-group">
+                  <label>Largura Minima</label>
+                  <input type="text" formControlName="larguraMin" class="form-control" id="larguraMin" placeholder="" required>
+                  <div class="invalid-feedback">
+                    Inserir largura válida.
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3 mb-3">
+                <div class="form-group">
+                  <label>Profundidade Minima</label>
+                  <input type="text" formControlName="profundidadeMin" class="form-control" id="profundidadeMin" placeholder="" required>
+                  <div class="invalid-feedback">
+                    Inserir profundidade válida.
+                  </div>
+                </div>
+              </div>
+      </div> 
+      <div class="row">
+        <div class="col-md-5 mb-3">
+          <div class="form-group">
+            <label>Altura Maxima</label>
+            <input type="text" formControlName="alturaMax" class="form-control" id="alturaMax" placeholder="" required>
+            <div class="invalid-feedback">
+              Inserir altura válida.
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mb-3">
+          <div class="form-group">
+            <label>Largura Maxima</label>
+            <input type="text" formControlName="larguraMax" class="form-control" id="larguraMax" placeholder="" required>
+            <div class="invalid-feedback">
+              Inserir largura válida.
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 mb-3">
+          <div class="form-group">
+            <label>Profundidade Maxima</label>
+            <input type="text" formControlName="profundidadeMax" class="form-control" id="profundidadeMax" placeholder="" required>
+            <div class="invalid-feedback">
+              Inserir profundidade válida.
+            </div>
+          </div>
+        </div>
+</div> 
+        <button onClick="setTimeout(function(){location.reload();}, 500);"(click)="addRestricao()" type="submit" class="btn btn-primary">Submit</button>
+                
+    </form>
+      {{regForm.value | json}}
+    </div>
+  </div>
+
+  <div id="editForm" action="">
+    <div class="col-md-8 order-md-1">
+    <h3 class="mb-3">Inserir Restricao</h3>
+
+<form [formGroup]="editForm">
+  <div class="row">
+          <div class="col-md-5 mb-3">
+            <div class="form-group">
+              <label>Altura Minima</label>
+              <input type="text" formControlName="alturaMin" class="form-control" id="alturaMin" placeholder="" value="{{restricao.heightMin}}" required>
+              <div class="invalid-feedback">
+                Inserir altura válida.
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 mb-3">
+            <div class="form-group">
+              <label>Largura Minima</label>
+              <input type="text" formControlName="larguraMin" class="form-control" id="larguraMin" placeholder="" value="{{restricao.lenghtMin}}" required>
+              <div class="invalid-feedback">
+                Inserir largura válida.
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3 mb-3">
+            <div class="form-group">
+              <label>Profundidade Minima</label>
+              <input type="text" formControlName="profundidadeMin" class="form-control" id="profundidadeMin" placeholder="" value="{{restricao.depthMin}}" required>
+              <div class="invalid-feedback">
+                Inserir profundidade válida.
+              </div>
+            </div>
+          </div>
+  </div> 
+  <div class="row">
+    <div class="col-md-5 mb-3">
+      <div class="form-group">
+        <label>Altura Maxima</label>
+        <input type="text" formControlName="alturaMax" class="form-control" id="alturaMax" placeholder=""  value="{{restricao.heightMax}}"required>
+        <div class="invalid-feedback">
+          Inserir altura válida.
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 mb-3">
+      <div class="form-group">
+        <label>Largura Maxima</label>
+        <input type="text" formControlName="larguraMax" class="form-control" id="larguraMax" placeholder="" value="{{restricao.lenghtMax}}" required>
+        <div class="invalid-feedback">
+          Inserir largura válida.
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 mb-3">
+      <div class="form-group">
+        <label>Profundidade Maxima</label>
+        <input type="text" formControlName="profundidadeMax" class="form-control" id="profundidadeMax" placeholder="" placeholder="" value="{{restricao.depthMax}}" required>
+        <div class="invalid-feedback">
+          Inserir profundidade válida.
+        </div>
+      </div>
+    </div>
+</div> 
+    <button (click)="editRestricao(restricao.restrictionId)" type="submit" class="btn btn-primary">Submit</button>
+            
+</form>
+  {{editForm.value | json}}
+</div>
+</div>

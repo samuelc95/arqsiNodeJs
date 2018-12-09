@@ -1,0 +1,84 @@
+
+<h2>Listagem Acabamentos</h2>
+<hr>
+  <table class="table table-bordered table-definition mb-5">
+    <thead class="table-primary ">
+        <tr>
+            <th>Nome</th>
+            <th>Edit</th>        
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr  *ngFor="let acab of acabamentos">
+            <td>{{ acab.nome }}</td>
+            
+            <td><button onclick="editDisplay(1)" (click)="getAcabamentoId(acab.acabamentoId)" class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" ><span class="fa fa-pencil" ></span></button></td>
+            <td><button onClick="setTimeout(function(){location.reload();}, 500);" (click)="deleteAcabamento(acab.acabamentoId)" class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="fa fa-trash-o" ></span></button></td>
+            
+        </tr>
+        
+    </tbody>
+    <tfoot>
+        <tr>
+            <th></th>
+            <th colspan="4">
+                <button onclick="formDisplay(1)" class="btn btn-primary float-right">Inserir Acabamento</button>
+                <!-- <button class="btn btn-default">Approve</button>
+                <button class="btn btn-default">Approve All</button>-->
+            </th>
+        </tr>
+    </tfoot>
+  </table>
+
+
+  <div id="divForm" action="">
+        <div class="col-md-8 order-md-1">
+        <h3 class="mb-3">Inserir Acabamento</h3>
+
+    <form [formGroup]="regForm">
+      <div class="row">
+              <div class="col-md-5 mb-3">
+                <div class="form-group">
+                  <label>Nome</label>
+                  <input type="text" formControlName="nome" class="form-control" id="nome" placeholder="" required>
+                  <div class="invalid-feedback">
+                    Inserir nome válido.
+                  </div>
+                </div>
+              </div>
+             
+      </div> 
+
+        <button onClick="setTimeout(function(){location.reload();}, 500);" (click)="addAcabamento()" type="submit" class="btn btn-primary">Submit</button>
+                
+    </form>
+      {{regForm.value | json}}
+    </div>
+  </div>
+
+  <div id="editForm" action="">
+    <div class="col-md-8 order-md-1">
+    <h3 class="mb-3">Inserir Material</h3>
+
+<form [formGroup]="editForm">
+  <div class="row">
+          <div class="col-md-5 mb-3">
+            <div class="form-group">
+              <label>Nome</label>
+              <input type="text" formControlName="nome" class="form-control" id="nome" value="{{acabamento.nome}}" placeholder="" required>
+              <div class="invalid-feedback">
+                Inserir nome válido.
+              </div>
+            </div>
+          </div>
+         
+  </div> 
+
+    <button onClick="setTimeout(function(){location.reload();}, 500);" (click)="editAcabamento(acabamento.acabamentoId)" type="submit" class="btn btn-primary">Submit</button>
+            
+</form>
+  {{regForm.value | json}}
+</div>
+</div>
+  

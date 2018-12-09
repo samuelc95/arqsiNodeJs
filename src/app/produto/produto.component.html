@@ -1,0 +1,108 @@
+
+<h2>Listagem Produtos</h2>
+<hr>
+  <table class="table table-bordered table-definition mb-5">
+    <thead class="table-primary ">
+        <tr>
+            <th>Nome</th>
+            <th>Dimensão</th>
+            <th>Material</th>
+            <th>Category</th>
+            <th>Edit</th>        
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr  *ngFor="let prod of produtos">
+            <td>{{ prod.nome }}</td>
+            <td>{{ getDimensao(prod.dimensionId) }}</td>
+            <td>{{ getMatAcab(prod.material_AcabamentoID) }}</td>
+            <td>{{ getCategoria(prod.categoryId) }}</td>
+            <td><button onClick="setTimeout(function(){location.reload();}, 500);" (click)="getProdutoId(prod.productId)" class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" ><span class="fa fa-pencil" ></span></button></td>
+            <td><button onClick="setTimeout(function(){location.reload();}, 500);" (click)="deleteProduto(prod.productId)" class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="fa fa-trash-o" ></span></button></td>
+            
+        </tr>
+        
+    </tbody>
+    <tfoot>
+        <tr>
+            <th></th>
+            <th colspan="4">
+                <button onclick="formDisplay(1)" class="btn btn-primary float-right">Inserir Produto</button>
+                <!-- <button class="btn btn-default">Approve</button>
+                <button class="btn btn-default">Approve All</button>-->
+            </th>
+        </tr>
+    </tfoot>
+  </table>
+
+
+  <div id="divForm" action="">
+        <div class="col-md-8 order-md-1">
+        <h3 class="mb-3">Inserir Produto</h3>
+
+    <form [formGroup]="regForm">
+      <div class="row">
+              <div class="col-md-5 mb-2">
+                <div class="form-group">
+                  <label>Nome</label>
+                  <input type="text" formControlName="nome" class="form-control" id="nome" placeholder="" required>
+                  <div class="invalid-feedback">
+                    Inserir nome válido.
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 mb-3">
+                <div class="form-group">
+                  <label>Descrição</label>
+                  <input type="text" formControlName="descricao" class="form-control" id="descricao" placeholder="" required>
+                  <div class="invalid-feedback">
+                    Inserir descricao válida.
+                  </div>
+                </div>
+              </div>
+      </div> 
+
+      <div class="row">
+        <div class="col-md-5 mb-2">
+          <div class="form-group">
+            <label>Dimensões</label>
+            <select class="form-control" formControlName="dimensaoId" id="dimensaoId" required>
+              <option *ngFor="let dim of dimensoes" value="{{dim.dimensionId}}">L:{{ dim.lenght }};A:{{ dim.height }};P:{{ dim.depth }};</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-6 mb-3">
+          <div class="form-group">
+            <label>Restrições</label>
+            <select class="form-control" formControlName="restricaoId" id="restricaoId" required>
+              <option *ngFor="let res of restricoes" value="{{res.restrictionId}}">L:{{ res.lenghtMin }} - {{ res.lenghtMax }};A:{{ res.heightMin }} - {{ res.heightMax }} ;P:{{ res.depthMin }} - {{ res.depthMax }};</option>
+            </select>
+          </div>
+        </div>
+      </div> 
+
+      <div class="row">
+        <div class="col-md-5 mb-2">
+          <div class="form-group">
+            <label>Categoria</label>
+            <select class="form-control" formControlName="categoriaId" id="categoriaId" required>
+              <option *ngFor="let cat of categorias" value="{{cat.categoryId}}">{{ cat.nome }}</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-6 mb-3">
+          <div class="form-group">
+            <label>Mat/Acabamento</label>
+            <select class="form-control" formControlName="materialAcabId" id="materialAcabId" required>
+              <option *ngFor="let matacab of materiaisAca" value="{{matacab.material_AcabamentoID}}">{{ getMatAcab(matacab.material_AcabamentoID) }}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+        <button onClick="setTimeout(function(){location.reload();}, 500);" (click)="addProduto()" type="submit" class="btn btn-primary">Submit</button>
+                
+    </form>
+      {{regForm.value | json}}
+    </div>
+  </div>
